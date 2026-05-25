@@ -2,17 +2,17 @@
 import React from 'react';
 import { useTypewriter } from '../../hooks/useCinematic'; 
 
+const BOOT_LINES = [
+  'BIOS v2.077 :: GHOST-CORE INITIALIZED',
+  'LOADING KERNEL MODULES...',
+  'MOUNTING /sys/profile/SYAHDAN_ALFAATIH...',
+  'ESTABLISHING SECURE UPLINK...',
+  'DECRYPTING IDENTITY MATRIX...',
+  'ALL SYSTEMS NOMINAL. WELCOME, OPERATOR.',
+];
+
 export const BootScreen = () => {
-  const lines = [
-    'BIOS v2.077 :: GHOST-CORE INITIALIZED',
-    'LOADING KERNEL MODULES...',
-    'MOUNTING /sys/profile/SYAHDAN_ALFAATIH...',
-    'ESTABLISHING SECURE UPLINK...',
-    'DECRYPTING IDENTITY MATRIX...',
-    'ALL SYSTEMS NOMINAL. WELCOME, OPERATOR.',
-  ];
-  
-  const output = useTypewriter(lines, 18, 250);
+  const output = useTypewriter(BOOT_LINES, 18, 250);
   
   return (
     <div className="bg-zinc-950 h-screen flex flex-col items-center justify-center font-mono p-10 relative overflow-hidden">

@@ -3,35 +3,34 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ShieldAlert } from 'lucide-react';
 import { usePageVisibility } from '../../hooks/useCinematic';
 
+const INITIAL_OFFSET = 0x00400000;
+const INITIAL_LINE_COUNT = 10;
+
+const generateHexLine = (baseOffset) => {
+  const offset = '0x' + baseOffset.toString(16).padStart(8, '0').toUpperCase();
+  let hexStr = '';
+  let asciiStr = '';
+  for (let i = 0; i < 8; i++) {
+    const byte = Math.floor(Math.random() * 256);
+    hexStr += byte.toString(16).padStart(2, '0').toUpperCase() + ' ';
+    if (i === 3) hexStr += ' ';
+    asciiStr += (byte > 32 && byte < 127) ? String.fromCharCode(byte) : '.';
+  }
+  const isHighlight = Math.random() > 0.90;
+  return { offset, hexStr, asciiStr, isHighlight };
+};
+
+const initialHexLines = Array.from(
+  { length: INITIAL_LINE_COUNT },
+  (_, index) => generateHexLine(INITIAL_OFFSET + index * 8),
+);
+
 export const GhostHexDump = () => {
-  const [hexLines, setHexLines] = useState([]);
+  const [hexLines, setHexLines] = useState(initialHexLines);
   const containerRef = useRef(null);
   const intervalRef = useRef(null);
-  const offsetRef = useRef(0x00400000);
-
-  const generateHexLine = (baseOffset) => {
-    const offset = '0x' + baseOffset.toString(16).padStart(8, '0').toUpperCase();
-    let hexStr = '';
-    let asciiStr = '';
-    for (let i = 0; i < 8; i++) {
-      const byte = Math.floor(Math.random() * 256);
-      hexStr += byte.toString(16).padStart(2, '0').toUpperCase() + ' ';
-      if (i === 3) hexStr += ' ';
-      asciiStr += (byte > 32 && byte < 127) ? String.fromCharCode(byte) : '.';
-    }
-    const isHighlight = Math.random() > 0.90;
-    return { offset, hexStr, asciiStr, isHighlight };
-  };
+  const offsetRef = useRef(INITIAL_OFFSET + INITIAL_LINE_COUNT * 8);
   const isPageVisible = usePageVisibility();
-
-  useEffect(() => {
-    const initialLines = [];
-    for (let i = 0; i < 10; i++) {
-      initialLines.push(generateHexLine(offsetRef.current));
-      offsetRef.current += 8;
-    }
-    setHexLines(initialLines);
-  }, []);
 
   useEffect(() => {
     const el = containerRef.current;

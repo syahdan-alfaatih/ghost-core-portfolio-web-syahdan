@@ -18,7 +18,9 @@ if (typeof window !== 'undefined') {
 
 export const useUnifiedScroll = (callback) => {
   const cb = useRef(callback);
-  cb.current = callback;
+  useEffect(() => {
+    cb.current = callback;
+  }, [callback]);
   useEffect(() => {
     const fn = (y) => cb.current(y);
     _scrollSubs.add(fn);
@@ -89,7 +91,7 @@ export const useTypewriter = (lines, speed = 28, delayBetween = 400) => {
     };
     timer = setTimeout(tick, 300);
     return () => clearTimeout(timer);
-  }, []);
+  }, [lines, speed, delayBetween]);
   return output;
 };
 

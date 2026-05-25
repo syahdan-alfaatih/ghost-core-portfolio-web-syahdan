@@ -42,7 +42,9 @@ export default function App() {
     if (!bootSequence) return;
     const timer = setTimeout(() => {
       setBootSequence(false);
-      try { sessionStorage.setItem('ghost_booted', '1'); } catch {}
+      try { sessionStorage.setItem('ghost_booted', '1'); } catch {
+        // Storage may be blocked by browser privacy settings.
+      }
     }, 3200);
     return () => clearTimeout(timer);
   }, [bootSequence]);

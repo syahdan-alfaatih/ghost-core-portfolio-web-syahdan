@@ -3,6 +3,13 @@ import { Terminal, Code, Activity } from 'lucide-react';
 import { useTypewriter, useMouseParallax, usePageVisibility } from '../../hooks/useCinematic';
 import heroVideo from '../../assets/scene1_videos/video4_bg.mp4';
 
+const HERO_LINES = [
+  '> SYSTEM KERNEL v2.077 LOADED',
+  '> IDENTITY MATRIX DECRYPTED',
+  '> OPERATOR: SYAHDAN ALFAATIH',
+  '> CLEARANCE: HYBRID TECH SPECIALIST',
+];
+
 const Hero = ({ scrollY }) => {
   const mouse = useMouseParallax();
   const isVisible = usePageVisibility();
@@ -17,13 +24,7 @@ const Hero = ({ scrollY }) => {
     }
   }, [isVisible]);
 
-  const heroLines = [
-    '> SYSTEM KERNEL v2.077 LOADED',
-    '> IDENTITY MATRIX DECRYPTED',
-    '> OPERATOR: SYAHDAN ALFAATIH',
-    '> CLEARANCE: HYBRID TECH SPECIALIST',
-  ];
-  const output = useTypewriter(heroLines, 22, 300);
+  const output = useTypewriter(HERO_LINES, 22, 300);
 
   const bgY = scrollY * 0.3;
   const midY = scrollY * 0.6;

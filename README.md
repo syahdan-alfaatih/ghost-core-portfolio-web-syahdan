@@ -4,7 +4,7 @@ Personal portfolio website with a cinematic, cyberpunk, and terminal-inspired ae
 
 ## 💻 Tech Stack
 
-- **Core:** React.js (v18)
+- **Core:** React.js (v19)
 - **Build Tool:** Vite
 - **Styling:** Tailwind CSS
 - **Icons:** Lucide React
