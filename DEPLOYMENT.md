@@ -9,6 +9,7 @@
 - Output production: folder `dist/`.
 - Runtime production: file statis; aplikasi tidak membutuhkan proses Node.js setelah hasil build disalin ke Nginx.
 - Routing: saat ini tidak memakai React Router atau client-side route berbasis URL. Navigasi hanya scroll ke section.
+- Hero background: browser modern memakai WebM optimized, dengan MP4 optimized sebagai fallback dan JPG sebagai poster.
 
 Konfigurasi saat ini memakai `base: './'` pada `vite.config.js`. Ini dapat diserve pada root domain `https://syahdanit.my.id/`. Jika nantinya ditambah `BrowserRouter` dengan deep link, gunakan asset base root (`/`) agar asset pada URL bertingkat tidak menjadi relatif terhadap route.
 
@@ -127,6 +128,8 @@ Aplikasi saat ini belum memakai React Router, sehingga fallback `try_files ... /
 
 Folder `/assets/` berisi nama file ber-hash dari build Vite sehingga aman diberi cache immutable. `favicon.svg` tidak ber-hash dan diberi cache lebih singkat agar pembaruan ikon tidak tertahan lama di browser.
 
+Build production hanya menyertakan media hero yang direferensikan komponen: WebM optimized, MP4 optimized, dan poster. File MP4 original tetap berada di source repository sebagai bahan arsip, tetapi tidak ikut disalin ke `dist/` selama tidak diimpor kembali.
+
 Aktifkan konfigurasi dan uji Nginx:
 
 ```bash
@@ -178,6 +181,7 @@ Jangan menyimpan private key, file `/etc/letsencrypt`, token, atau password di r
 - Jalankan `npm run lint`.
 - Jalankan `npm run build`.
 - Periksa bahwa output tersedia di `dist/`.
+- Periksa ukuran asset hero di `dist/assets/` agar file original berukuran besar tidak kembali ikut build.
 - Salin `dist/` dengan `rsync` ke `/var/www/syahdanit.my.id/html/`.
 - Jalankan `sudo nginx -t`.
 - Reload Nginx bila konfigurasi berubah.

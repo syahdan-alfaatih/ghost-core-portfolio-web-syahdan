@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { Terminal, Code, Activity } from 'lucide-react';
 import { useTypewriter, useMouseParallax, usePageVisibility } from '../../hooks/useCinematic';
-import heroVideo from '../../assets/scene1_videos/video4_bg.mp4';
+import heroVideoWebm from '../../assets/scene1_videos/video4_bg.optimized.webm';
+import heroVideoMp4 from '../../assets/scene1_videos/video4_bg.optimized.mp4';
+import heroPoster from '../../assets/scene1_videos/video4_bg.poster.jpg';
 
 const HERO_LINES = [
   '> SYSTEM KERNEL v2.077 LOADED',
@@ -44,11 +46,14 @@ const Hero = ({ scrollY }) => {
         style={{ transform: `translateY(${bgY}px) scale(1.08)` }}
       >
         <video
+          ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover opacity-12"
           autoPlay muted loop playsInline
-          poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3C/svg%3E"
+          preload="metadata"
+          poster={heroPoster}
         >
-          <source src={heroVideo} type="video/mp4" />
+          <source src={heroVideoWebm} type="video/webm" />
+          <source src={heroVideoMp4} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#09090b_0%,transparent_50%,transparent_75%,#09090b_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#09090b_0%,transparent_30%,transparent_75%,#09090b_100%)]" />
